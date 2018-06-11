@@ -1,6 +1,11 @@
 class PostsController < ApplicationController
 
+  def new
+    @post = Post.new(author_id: params[:author_id])
+  end
+    
   def index
+    binding.pry
     if params[:author_id]
       @posts = Author.find(params[:author_id]).posts
     else
@@ -14,10 +19,6 @@ class PostsController < ApplicationController
     else
       @post = Post.find(params[:id])
     end
-  end
-
-  def new
-    @post = Post.new
   end
 
   def create
@@ -39,6 +40,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :description)
+    params.require(:post).permit(:title, :description, :author_id)
   end
 end
